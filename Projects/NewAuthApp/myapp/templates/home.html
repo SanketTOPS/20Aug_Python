@@ -47,7 +47,7 @@
                         <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                     </li>
                 </ul>
-                {% if user is none %}
+                {% if cuser is none %}
                 <a href="/" class="btn btn-success mx-3">Login</a>
                 {% else %}
                 <a href="/userlogout" class="btn btn-danger">Logout</a>
@@ -62,9 +62,9 @@
         <h1 style="text-align: center;color: blue;">Welcome to Home!</h1>
         <hr>
 
-        {% if user %}
+        {% if cuser %}
         <div class="alert alert-success" role="alert">
-            Welcome, <span>{{user}} </span>
+            Welcome, <span>{{cuser}} </span>
         </div>
         {% else %}
         <div class="alert alert-danger" role="alert">
