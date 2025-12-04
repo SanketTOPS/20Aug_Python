@@ -10,4 +10,5 @@ urlpatterns = [
    path('profile/',views.profile,name='profile'),
    path('about/',views.about,name='about'),
    path('contact/',views.contact,name='contact'),
+   path('otpverify/',views.otpverify,name='otpverify'),
 ]
