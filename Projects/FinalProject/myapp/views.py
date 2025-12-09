@@ -3,10 +3,12 @@ from .forms import *
 from django.core.mail import send_mail
 import random
 from FinalProject import settings
+from django.contrib.auth import logout
 
 # Create your views here.
 def index(request):
-    return render(request,'index.html')
+    user=request.session.get("user") #session get
+    return render(request,'index.html',{'user':user})
 
 def signup(request):
     if request.method=='POST':
@@ -44,6 +46,20 @@ def otpverify(request):
     return render(request,'otpverify.html',{'msg':msg})
 
 def login(request):
+    if request.method=='POST':
+        unm=request.POST['username']
+        pas=request.POST['password']
+        
+        user=UserSignup.objects.filter(username=unm,password=pas)
+        userid=UserSignup.objects.get(username=unm)
+        print("UserID:",userid)
+        if user:
+            print("Login Successfull!")
+            request.session["user"]=unm #session gen.
+            request.session["userid"]=userid.id #session gen.
+            return redirect("/")
+        else:
+            print("Error!Login Faild...")
     return render(request,'login.html')
 
 def about(request):
@@ -56,4 +72,19 @@ def notes(request):
     return render(request,'notes.html')
 
 def profile(request):
-    return render(request,'profile.html')
+    user=request.session.get("user") #session get
+    userid=request.session.get("userid") #session get
+    cuser=UserSignup.objects.get(id=userid)
+    if request.method=='POST':
+        updateReq=UpdateForm(request.POST,instance=cuser)
+        if updateReq.is_valid():
+            updateReq.save()
+            print("Profile Updated!")
+            return redirect("/")
+        else:
+            print(updateReq.errors)
+    return render(request,'profile.html',{'user':user,'cuser':cuser})
+
+def userlogout(request):
+    logout(request)
+    return redirect("login")

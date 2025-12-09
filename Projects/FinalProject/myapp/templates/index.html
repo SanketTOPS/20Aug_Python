@@ -47,8 +47,21 @@
                     </li>
 
                 </ul>
-                <a href="/login" type="button" class="btn btn-outline-warning mx-2">Login</a>
-                <a href="/signup" type="button" class="btn btn-outline-primary">Signup</a>
+                {% if user is none %}
+                <a href="/login" type="button" class="btn btn-outline-warning">Login</a>
+                <a href="/signup" type="button" class="btn btn-outline-primary mx-2">Signup</a>
+                {% else %}
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        {{user}}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/profile">Update Profile</a></li>
+                        <li><a class="dropdown-item" href="/userlogout">Logout</a></li>
+                    </ul>
+                </div>
+                {% endif %}
             </div>
         </div>
     </nav>
