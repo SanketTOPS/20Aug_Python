@@ -63,13 +63,33 @@ def login(request):
     return render(request,'login.html')
 
 def about(request):
-    return render(request,'about.html')
+    user=request.session.get("user")
+    return render(request,'about.html',{'user':user})
 
 def contact(request):
-    return render(request,'contact.html')
+    user=request.session.get("user")
+    return render(request,'contact.html',{'user':user})
 
 def notes(request):
-    return render(request,'notes.html')
+    user=request.session.get("user")
+    try:
+        unm=UserSignup.objects.get(username=user)
+        if request.method=='POST':
+            newReq=NotesForm(request.POST,request.FILES)
+            if newReq.is_valid():
+                x=newReq.save(commit=False)
+                x.user=unm
+                x.status="Pending"
+                x.save()
+                print("Notes Submitted!")
+            else:
+                print(newReq.errors)
+        return render(request,'notes.html',{'user':user})
+    except UserSignup.DoesNotExist:
+        print("Error!")
+       
+        return render(request,'notes.html')
+        
 
 def profile(request):
     user=request.session.get("user") #session get

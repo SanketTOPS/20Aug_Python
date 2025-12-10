@@ -36,9 +36,11 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/notes">Notes</a>
                     </li>
+                    {% if user %}
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/profile">Profile</a>
                     </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">About</a>
                     </li>

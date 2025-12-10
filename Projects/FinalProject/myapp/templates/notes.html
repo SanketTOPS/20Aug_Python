@@ -36,9 +36,11 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Notes</a>
                     </li>
+                    {% if user %}
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/profile">Profile</a>
                     </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/about">About</a>
                     </li>
@@ -47,14 +49,79 @@
                     </li>
 
                 </ul>
-                <a href="/login" type="button" class="btn btn-outline-warning mx-2">Login</a>
-                <a href="/signup" type="button" class="btn btn-outline-primary">Signup</a>
+                {% if user is none %}
+                <a href="/login" type="button" class="btn btn-outline-warning">Login</a>
+                <a href="/signup" type="button" class="btn btn-outline-primary mx-2">Signup</a>
+                {% else %}
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        {{user}}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/profile">Update Profile</a></li>
+                        <li><a class="dropdown-item" href="/userlogout">Logout</a></li>
+                    </ul>
+                </div>
+                {% endif %}
             </div>
         </div>
     </nav>
     <!-- Navbar End -->
 
-    <h1 style="text-align: center;color: blue;">Welcome to Notes Page</h1>
+    {% if user is none %}
+
+    <!-- Notes Form Start -->
+    <div class="container my-4">
+        <h2
+            style="text-align: center;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;color: blue;">
+            Notes Submission</h2>
+        <hr>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Notes Title</label>
+                <input type="text" name="title" class="form-control" id="exampleInputEmail1"
+                    aria-describedby="emailHelp">
+            </div>
+            <label for="exampleFormControlTextarea1" class="form-label">Select Category</label>
+            <select class="form-select" name="cate" aria-label="Default select example">
+
+                <option selected>Select your note's category!</option>
+                <option>Core Python</option>
+                <option>Python with Django</option>
+                <option>JAVA / PHP</option>
+                <option>iOS / Android</option>
+                <option>Others</option>
+            </select>
+            <div class="mb-3 my-3">
+                <label for="formFile" class="form-label">Default file input example</label>
+                <input class="form-control" name="files" type="file" id="formFile">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Notes Descriptions</label>
+                <textarea class="form-control" name="desc" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-dark">Submit Notes</button>
+        </form>
+    </div>
+    <!-- Notes Form End -->
+    {% else %}
+
+    <!-- Warning Card Start -->
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Well done!</h4>
+        <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer
+            so that you can see how spacing within an alert works with this kind of content.</p>
+        <hr>
+        <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+    </div>
+    <!-- Warning Card End -->
+    {% endif %}
+
+
+
 </body>
 
 </html>
