@@ -70,7 +70,18 @@
     <!-- Navbar End -->
 
     {% if user is none %}
-
+    <!-- Warning Card Start -->
+    <div class="container my-5">
+        <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">Oops!</h4>
+            <p>Welcome to Notes Submission App!</p>
+            <p>If you want to submit your notes, go to the login page, and submit your notes.</p>
+            <hr>
+            <p class="mb-0">For Notes Submission <a href="/login">Login First!</a></p>
+        </div>
+    </div>
+    <!-- Warning Card End -->
+    {% else %}
     <!-- Notes Form Start -->
     <div class="container my-4">
         <h2
@@ -107,17 +118,6 @@
         </form>
     </div>
     <!-- Notes Form End -->
-    {% else %}
-
-    <!-- Warning Card Start -->
-    <div class="alert alert-success" role="alert">
-        <h4 class="alert-heading">Well done!</h4>
-        <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer
-            so that you can see how spacing within an alert works with this kind of content.</p>
-        <hr>
-        <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
-    </div>
-    <!-- Warning Card End -->
     {% endif %}
 
 

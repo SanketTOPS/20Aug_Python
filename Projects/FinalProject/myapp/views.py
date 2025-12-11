@@ -71,8 +71,8 @@ def contact(request):
     return render(request,'contact.html',{'user':user})
 
 def notes(request):
-    user=request.session.get("user")
     try:
+        user=request.session.get("user")
         unm=UserSignup.objects.get(username=user)
         if request.method=='POST':
             newReq=NotesForm(request.POST,request.FILES)
@@ -84,11 +84,9 @@ def notes(request):
                 print("Notes Submitted!")
             else:
                 print(newReq.errors)
-        return render(request,'notes.html',{'user':user})
-    except UserSignup.DoesNotExist:
-        print("Error!")
-       
-        return render(request,'notes.html')
+    except:
+        print("Error!")   
+    return render(request,'notes.html',{'user':user})
         
 
 def profile(request):

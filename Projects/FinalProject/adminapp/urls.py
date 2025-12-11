@@ -4,4 +4,7 @@ from adminapp import views
 
 urlpatterns = [
    path('',views.admin_login),
+   path('admin_dashboard/',views.admin_dashboard,name='admin_dashboard'),
+   path('admin_userdata/',views.admin_userdata,name='admin_userdata'),
+   path('admin_notesdata/',views.admin_notesdata,name='admin_notesdata'),
 ]

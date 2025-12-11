@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submitted Notes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 p-8">
+
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Submitted Notes</h1>
+
+    <div class="bg-white shadow-lg rounded-lg overflow-x-auto">
+
+        <table class="min-w-full border-collapse text-left">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="px-6 py-3 border-b font-semibold text-gray-700">ID</th>
+                    <th class="px-6 py-3 border-b font-semibold text-gray-700">Submitted_at</th>
+                    <th class="px-6 py-3 border-b font-semibold text-gray-700">Submitted by</th>
+                    <th class="px-6 py-3 border-b font-semibold text-gray-700">Title</th>
+                    <th class="px-6 py-3 border-b font-semibold text-gray-700">Category</th>
+                    <th class="px-6 py-3 border-b font-semibold text-gray-700">File</th>
+                    <th class="px-6 py-3 border-b font-semibold text-gray-700">Description</th>
+                    <th class="px-6 py-3 border-b font-semibold text-gray-700">Status</th>
+                    <th class="px-6 py-3 border-b font-semibold text-gray-700">Updated_at</th>
+                    <th class="px-6 py-3 border-b font-semibold text-gray-700">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for n in ndata %}
+                <tr class="hover:bg-gray-100">
+                    <td class="px-6 py-3 border-b">{{ n.id }}</td>
+                    <td class="px-6 py-3 border-b">{{ n.submitted_at }}</td>
+                    <td class="px-6 py-3 border-b">{{ n.user }}</td>
+                    <td class="px-6 py-3 border-b">{{ n.title }}</td>
+                    <td class="px-6 py-3 border-b">{{ n.cate }}</td>
+                    <!-- File Download -->
+                    <td class="px-6 py-3 border-b">
+                        <a href="{{ n.files.url }}" target="_blank" class="text-blue-600 underline hover:text-blue-800">
+                            View File
+                        </a>
+                    </td>
+                    <td class="px-6 py-3 border-b">{{ n.desc }}</td>
+                    <!-- Status -->
+                    <td class="px-6 py-3 border-b">
+                        {% if n.status == "Pending" %}
+                        <span class="bg-yellow-200 text-yellow-800 px-3 py-1 rounded-full text-sm">
+                            Pending
+                        </span>
+                        {% elif n.status == "Approved" %}
+                        <span class="bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm">
+                            Approved
+                        </span>
+                        {% else %}
+                        <span class="bg-red-200 text-red-800 px-3 py-1 rounded-full text-sm">
+                            Rejected
+                        </span>
+                        {% endif %}
+                    </td>
+
+                    <!-- User -->
+                    <td class="px-6 py-3 border-b">{{ n.updated_at }}</td>
+
+                    <!-- Action Buttons -->
+                    <td class="px-6 py-3 border-b flex gap-3">
+                        <a href="#" class="text-green-600 hover:underline">Approve</a>
+
+                        <a href="#" class="text-red-600 hover:underline">Reject</a>
+
+                        <a href="#" class="text-gray-600 hover:underline">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+
+</body>
+
+</html>

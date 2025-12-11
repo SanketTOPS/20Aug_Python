@@ -4,12 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin | Login</title>
+    <title>Admin Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body style="background-color: aliceblue;">
-    <h1 style="text-align: center;color: blue;">Welcome to Admin</h1>
-    <hr>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+    <div class="w-full max-w-sm bg-white rounded-xl shadow-lg p-6">
+        <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">Admin Login</h2>
+
+        <form method="post">
+            {%csrf_token%}
+            <label class="block mb-3">
+                <span class="text-gray-700 font-medium">Username</span>
+                <input type="text" name="username"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+                    placeholder="Enter username">
+            </label>
+
+            <label class="block mb-4">
+                <span class="text-gray-700 font-medium">Password</span>
+                <input type="password" name="password"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+                    placeholder="Enter password">
+            </label>
+
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                Login
+            </button>
+        </form>
+    </div>
+
 </body>
 
 </html>
