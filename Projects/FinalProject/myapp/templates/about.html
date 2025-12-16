@@ -2,60 +2,136 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup</title>
-    <link rel="shortcut icon" href="/static/Images/favicon.png" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body style="background-color: aliceblue;">
+<body class="bg-gray-100 text-gray-800">
 
-    <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <img src="/static/Images/noteapp_logo.png" alt="Logo" width="40" height="30"
-                    class="d-inline-block align-text-top">
-                NotesApp
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/notes">Notes</a>
-                    </li>
+    <!-- Navbar Start (Tailwind CSS) -->
+    <nav class="bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="/" class="flex items-center space-x-2">
+                    <img src="/static/Images/noteapp_logo.png" alt="Logo" class="h-8 w-8">
+                    <span class="text-xl font-semibold">NotesApp</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="/" class="hover:text-indigo-400">Home</a>
+                    <a href="/notes" class="hover:text-indigo-400">Notes</a>
                     {% if user %}
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/profile">Profile</a>
-                    </li>
+                    <a href="/profile" class="hover:text-indigo-400">Profile</a>
                     {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/contact">Contact</a>
-                    </li>
+                    <a href="/about" class="hover:text-indigo-400">About</a>
+                    <a href="/contact" class="hover:text-indigo-400">Contact</a>
 
-                </ul>
-                <a href="/login" type="button" class="btn btn-outline-warning mx-2">Login</a>
-                <a href="/signup" type="button" class="btn btn-outline-primary">Signup</a>
+                    {% if user is none %}
+                    <a href="/login"
+                        class="border border-yellow-400 text-yellow-400 px-4 py-1 rounded-lg hover:bg-yellow-400 hover:text-black">Login</a>
+                    <a href="/signup"
+                        class="border border-indigo-500 text-indigo-400 px-4 py-1 rounded-lg hover:bg-indigo-500 hover:text-white">Signup</a>
+                    {% else %}
+                    <div class="relative group">
+                        <button class="bg-gray-700 px-4 py-1 rounded-lg">{{ user }}</button>
+                        <div
+                            class="absolute right-0 mt-2 w-40 bg-white text-gray-800 rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/profile" class="block px-4 py-2 hover:bg-gray-100">Update Profile</a>
+                            <a href="/userlogout" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="menu-btn" class="md:hidden focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
             </div>
         </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-800 px-4 pb-4 space-y-2">
+            <a href="/" class="block hover:text-indigo-400">Home</a>
+            <a href="/notes" class="block hover:text-indigo-400">Notes</a>
+            {% if user %}
+            <a href="/profile" class="block hover:text-indigo-400">Profile</a>
+            {% endif %}
+            <a href="/about" class="block hover:text-indigo-400">About</a>
+            <a href="/contact" class="block hover:text-indigo-400">Contact</a>
+
+            {% if user is none %}
+            <a href="/login"
+                class="block border border-yellow-400 text-yellow-400 px-4 py-1 rounded-lg text-center">Login</a>
+            <a href="/signup"
+                class="block border border-indigo-500 text-indigo-400 px-4 py-1 rounded-lg text-center">Signup</a>
+            {% else %}
+            <a href="/profile" class="block hover:text-indigo-400">Update Profile</a>
+            <a href="/userlogout" class="block hover:text-indigo-400">Logout</a>
+            {% endif %}
+        </div>
     </nav>
+
+    <script>
+        const btn = document.getElementById('menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
     <!-- Navbar End -->
-    <h1 style="text-align: center;color: blue;">Welcome to About Page</h1>
+
+    <!-- About Section -->
+    <section class="max-w-6xl mx-auto px-4 py-12">
+        <div class="bg-white shadow-lg rounded-2xl p-8">
+            <h1 class="text-3xl font-bold mb-4 text-center text-indigo-600">About Us</h1>
+
+            <p class="text-lg leading-relaxed mb-4">
+                Welcome to <span class="font-semibold">Our Website</span>. We are passionate about building
+                high-quality web solutions that are simple, scalable, and user-friendly.
+            </p>
+
+            <p class="text-lg leading-relaxed mb-4">
+                Our goal is to help students and professionals learn modern technologies such as
+                <span class="font-semibold">Python, Django, Web Development, and Digital Marketing</span>
+                through practical, real-world examples.
+            </p>
+
+            <p class="text-lg leading-relaxed">
+                We believe in continuous learning, hands-on practice, and sharing knowledge to grow
+                together in the tech community.
+            </p>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="max-w-6xl mx-auto px-4 pb-12">
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white shadow-md rounded-2xl p-6">
+                <h2 class="text-2xl font-semibold mb-2 text-indigo-600">Our Mission</h2>
+                <p class="text-lg leading-relaxed">
+                    To provide easy-to-understand, practical learning experiences and build
+                    technology-driven solutions that create real impact.
+                </p>
+            </div>
+
+            <div class="bg-white shadow-md rounded-2xl p-6">
+                <h2 class="text-2xl font-semibold mb-2 text-indigo-600">Our Vision</h2>
+                <p class="text-lg leading-relaxed">
+                    To become a trusted platform for learning, innovation, and growth in the IT
+                    and digital ecosystem.
+                </p>
+            </div>
+        </div>
+    </section>
+
 </body>
 
 </html>
