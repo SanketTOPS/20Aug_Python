@@ -4,45 +4,42 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Us</title>
-    <!-- Tailwind CSS CDN -->
+    <title>About | NotesApp</title>
+    <link rel="shortcut icon" href="/static/Images/favicon.png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-slate-100 text-slate-800 min-h-screen">
 
-    <!-- Navbar Start (Tailwind CSS) -->
-    <nav class="bg-gray-900 text-white">
+    <!-- Navbar (Same Reference as Other Pages) -->
+    <nav class="bg-slate-900 text-white shadow-md">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
                 <a href="/" class="flex items-center space-x-2">
-                    <img src="/static/Images/noteapp_logo.png" alt="Logo" class="h-8 w-8">
+                    <img src="/static/Images/noteapp_logo.png" class="h-8 w-8" alt="Logo">
                     <span class="text-xl font-semibold">NotesApp</span>
                 </a>
 
-                <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-6">
-                    <a href="/" class="hover:text-indigo-400">Home</a>
-                    <a href="/notes" class="hover:text-indigo-400">Notes</a>
+                    <a href="/" class="hover:text-yellow-400">Home</a>
+                    <a href="/notes" class="hover:text-yellow-400">Notes</a>
                     {% if user %}
-                    <a href="/profile" class="hover:text-indigo-400">Profile</a>
+                    <a href="/profile" class="hover:text-yellow-400">Profile</a>
                     {% endif %}
-                    <a href="/about" class="hover:text-indigo-400">About</a>
-                    <a href="/contact" class="hover:text-indigo-400">Contact</a>
+                    <a href="/about" class="text-yellow-400 font-medium">About</a>
+                    <a href="/contact" class="hover:text-yellow-400">Contact</a>
 
                     {% if user is none %}
                     <a href="/login"
-                        class="border border-yellow-400 text-yellow-400 px-4 py-1 rounded-lg hover:bg-yellow-400 hover:text-black">Login</a>
-                    <a href="/signup"
-                        class="border border-indigo-500 text-indigo-400 px-4 py-1 rounded-lg hover:bg-indigo-500 hover:text-white">Signup</a>
+                        class="px-4 py-2 border border-yellow-400 text-yellow-400 rounded-lg hover:bg-yellow-400 hover:text-black transition">Login</a>
+                    <a href="/signup" class="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition">Signup</a>
                     {% else %}
                     <div class="relative group">
-                        <button class="bg-gray-700 px-4 py-1 rounded-lg">{{ user }}</button>
+                        <button class="px-4 py-2 bg-slate-700 rounded-lg">{{ user }}</button>
                         <div
-                            class="absolute right-0 mt-2 w-40 bg-white text-gray-800 rounded-lg shadow-lg hidden group-hover:block">
-                            <a href="/profile" class="block px-4 py-2 hover:bg-gray-100">Update Profile</a>
-                            <a href="/userlogout" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
+                            class="absolute right-0 mt-2 w-44 bg-white text-black rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/profile" class="block px-4 py-2 hover:bg-slate-100">Update Profile</a>
+                            <a href="/userlogout" class="block px-4 py-2 hover:bg-slate-100">Logout</a>
                         </div>
                     </div>
                     {% endif %}
@@ -58,23 +55,22 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-800 px-4 pb-4 space-y-2">
-            <a href="/" class="block hover:text-indigo-400">Home</a>
-            <a href="/notes" class="block hover:text-indigo-400">Notes</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-800 px-4 pb-4 space-y-2">
+            <a href="/" class="block hover:text-yellow-400">Home</a>
+            <a href="/notes" class="block hover:text-yellow-400">Notes</a>
             {% if user %}
-            <a href="/profile" class="block hover:text-indigo-400">Profile</a>
+            <a href="/profile" class="block hover:text-yellow-400">Profile</a>
             {% endif %}
-            <a href="/about" class="block hover:text-indigo-400">About</a>
-            <a href="/contact" class="block hover:text-indigo-400">Contact</a>
+            <a href="/about" class="block text-yellow-400">About</a>
+            <a href="/contact" class="block hover:text-yellow-400">Contact</a>
 
             {% if user is none %}
             <a href="/login"
-                class="block border border-yellow-400 text-yellow-400 px-4 py-1 rounded-lg text-center">Login</a>
-            <a href="/signup"
-                class="block border border-indigo-500 text-indigo-400 px-4 py-1 rounded-lg text-center">Signup</a>
+                class="block border border-yellow-400 text-yellow-400 px-4 py-2 rounded-lg text-center">Login</a>
+            <a href="/signup" class="block bg-blue-600 text-white px-4 py-2 rounded-lg text-center">Signup</a>
             {% else %}
-            <a href="/profile" class="block hover:text-indigo-400">Update Profile</a>
-            <a href="/userlogout" class="block hover:text-indigo-400">Logout</a>
+            <a href="/profile" class="block hover:text-yellow-400">Update Profile</a>
+            <a href="/userlogout" class="block hover:text-yellow-400">Logout</a>
             {% endif %}
         </div>
     </nav>
@@ -82,55 +78,61 @@
     <script>
         const btn = document.getElementById('menu-btn');
         const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
+        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
     </script>
-    <!-- Navbar End -->
 
-    <!-- About Section -->
-    <section class="max-w-6xl mx-auto px-4 py-12">
-        <div class="bg-white shadow-lg rounded-2xl p-8">
-            <h1 class="text-3xl font-bold mb-4 text-center text-indigo-600">About Us</h1>
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-16">
+        <div class="max-w-5xl mx-auto text-center px-4">
+            <h1 class="text-4xl font-bold mb-4">About NotesApp</h1>
+            <p class="text-lg">A simple, secure and smart way to manage your notes</p>
+        </div>
+    </section>
 
+    <!-- About Content -->
+    <section class="max-w-6xl mx-auto px-6 py-12">
+        <div class="bg-white rounded-2xl shadow-lg p-8">
             <p class="text-lg leading-relaxed mb-4">
-                Welcome to <span class="font-semibold">Our Website</span>. We are passionate about building
-                high-quality web solutions that are simple, scalable, and user-friendly.
+                <span class="font-semibold">NotesApp</span> is designed to help students and professionals
+                easily create, manage, and organize their notes in one secure place.
             </p>
-
             <p class="text-lg leading-relaxed mb-4">
-                Our goal is to help students and professionals learn modern technologies such as
-                <span class="font-semibold">Python, Django, Web Development, and Digital Marketing</span>
-                through practical, real-world examples.
+                This platform focuses on practical learning and real-world usage, especially for
+                technologies like <span class="font-semibold">Python, Django, Web Development,
+                    Mobile App Development, and Digital Marketing</span>.
             </p>
-
             <p class="text-lg leading-relaxed">
-                We believe in continuous learning, hands-on practice, and sharing knowledge to grow
-                together in the tech community.
+                Our aim is to build a clean, user-friendly application that improves productivity
+                and encourages continuous learning.
             </p>
         </div>
     </section>
 
-    <!-- Mission & Vision -->
-    <section class="max-w-6xl mx-auto px-4 pb-12">
-        <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-white shadow-md rounded-2xl p-6">
-                <h2 class="text-2xl font-semibold mb-2 text-indigo-600">Our Mission</h2>
-                <p class="text-lg leading-relaxed">
-                    To provide easy-to-understand, practical learning experiences and build
-                    technology-driven solutions that create real impact.
+    <!-- Mission & Vision Cards -->
+    <section class="max-w-6xl mx-auto px-6 pb-12">
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition">
+                <h2 class="text-2xl font-semibold text-indigo-600 mb-2">🚀 Our Mission</h2>
+                <p class="text-lg">
+                    To provide a practical, easy-to-use platform that empowers users
+                    to manage knowledge efficiently and learn modern technologies.
                 </p>
             </div>
 
-            <div class="bg-white shadow-md rounded-2xl p-6">
-                <h2 class="text-2xl font-semibold mb-2 text-indigo-600">Our Vision</h2>
-                <p class="text-lg leading-relaxed">
-                    To become a trusted platform for learning, innovation, and growth in the IT
-                    and digital ecosystem.
+            <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition">
+                <h2 class="text-2xl font-semibold text-indigo-600 mb-2">🌟 Our Vision</h2>
+                <p class="text-lg">
+                    To become a trusted digital notes and learning platform
+                    for students, educators, and professionals.
                 </p>
             </div>
         </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 text-center py-4">
+        <p>© 2025 NotesApp. All rights reserved.</p>
+    </footer>
 
 </body>
 

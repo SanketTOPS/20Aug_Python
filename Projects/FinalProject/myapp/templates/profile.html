@@ -4,153 +4,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Profile | NotesApp</title>
     <link rel="shortcut icon" href="/static/Images/favicon.png" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body style="background-color: aliceblue;">
+<body class="bg-slate-100 min-h-screen">
 
-    <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <img src="/static/Images/noteapp_logo.png" alt="Logo" width="40" height="30"
-                    class="d-inline-block align-text-top">
-                NotesApp
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/notes">Notes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/contact">Contact</a>
-                    </li>
-
-                </ul>
-                {% if user is none %}
-                <a href="/login" type="button" class="btn btn-outline-warning">Login</a>
-                <a href="/signup" type="button" class="btn btn-outline-primary mx-2">Signup</a>
-                {% else %}
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        {{user}}
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/userlogout">Logout</a></li>
-                    </ul>
+    <!-- Navbar -->
+    <nav class="bg-slate-900 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <img src="/static/Images/noteapp_logo.png" class="h-8 w-8" alt="Logo">
+                    <span class="text-xl font-semibold">NotesApp</span>
                 </div>
-                {% endif %}
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="/" class="hover:text-yellow-400">Home</a>
+                    <a href="/notes" class="hover:text-yellow-400">Notes</a>
+                    <a href="/about" class="hover:text-yellow-400">About</a>
+                    <a href="/contact" class="hover:text-yellow-400">Contact</a>
+
+                    {% if user is none %}
+                    <a href="/login"
+                        class="px-4 py-2 border border-yellow-400 text-yellow-400 rounded-lg hover:bg-yellow-400 hover:text-black transition">Login</a>
+                    <a href="/signup" class="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition">Signup</a>
+                    {% else %}
+                    <div class="relative group">
+                        <button class="px-4 py-2 bg-slate-700 rounded-lg">{{ user }}</button>
+                        <div
+                            class="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg hidden group-hover:block">
+                            <a href="/userlogout" class="block px-4 py-2 hover:bg-slate-100">Logout</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </nav>
-    <!-- Navbar End -->
 
-    <!-- Update Form Start -->
-    <div class="container my-5">
-        <h2 style="text-align: center;color: blue;">Update Profile</h2>
-        <hr>
-        <form method="post" class="row g-3 needs-validation" novalidate>
-            {% csrf_token %}
-            <div class="col-md-6">
-                <label for="validationCustom01" class="form-label">First name</label>
-                <input type="text" value="{{cuser.firstname}}" name="firstname" class="form-control"
-                    id="validationCustom01" required>
-                <div class="valid-feedback">
-                    Looks good!
+    <!-- Profile Update Form -->
+    <section class="max-w-5xl mx-auto my-12 px-6">
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+            <h2 class="text-3xl font-bold text-center text-blue-600 mb-6">Update Profile</h2>
+            <hr class="mb-6">
+
+            <form method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {% csrf_token %}
+
+                <div>
+                    <label class="block text-sm font-medium mb-1">First Name</label>
+                    <input type="text" name="firstname" value="{{cuser.firstname}}"
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                        required>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <label for="validationCustom02" class="form-label">Last name</label>
-                <input type="text" value="{{cuser.lastname}}" name="lastname" class="form-control"
-                    id="validationCustom02" required>
-                <div class="valid-feedback">
-                    Looks good!
+
+                <div>
+                    <label class="block text-sm font-medium mb-1">Last Name</label>
+                    <input type="text" name="lastname" value="{{cuser.lastname}}"
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                        required>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <label for="validationCustomUsername" class="form-label">Username</label>
-                <div class="input-group has-validation">
-                    <span class="input-group-text" id="inputGroupPrepend">@</span>
-                    <input type="text" value="{{cuser.username}}" name="username" disabled class="form-control"
-                        id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
-                    <div class="invalid-feedback">
-                        Please choose a username.
-                    </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1">Username</label>
+                    <input type="text" value="{{cuser.username}}" disabled
+                        class="w-full px-4 py-2 border rounded-lg bg-slate-100 cursor-not-allowed">
                 </div>
-            </div>
-            <div class="col-md-6">
-                <label for="validationCustom01" class="form-label">Password</label>
-                <input type="password" value="{{cuser.password}}" name="password" disabled class="form-control"
-                    id="validationCustom01" required>
-                <div class="valid-feedback">
-                    Looks good!
+
+                <div>
+                    <label class="block text-sm font-medium mb-1">Password</label>
+                    <input type="password" value="{{cuser.password}}" disabled
+                        class="w-full px-4 py-2 border rounded-lg bg-slate-100 cursor-not-allowed">
                 </div>
-            </div>
-            <div class="col-md-6">
-                <label for="validationCustom03" class="form-label">City</label>
-                <input type="text" name="city" value="{{cuser.city}}" class="form-control" id="validationCustom03"
-                    required>
-                <div class="invalid-feedback">
-                    Please provide a valid city.
+
+                <div>
+                    <label class="block text-sm font-medium mb-1">City</label>
+                    <input type="text" name="city" value="{{cuser.city}}"
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                        required>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <label for="validationCustom04" class="form-label">State</label>
-                <select class="form-select" name="state" id="validationCustom04" required>
-                    <option selected disabled value="">{{cuser.state}}</option>
-                    <option>Gujarat</option>
-                    <option>Delhi</option>
-                    <option>Goa</option>
-                    <option>Punjab</option>
-                    <option>Other</option>
-                </select>
-                <div class="invalid-feedback">
-                    Please select a valid state.
+
+                <div>
+                    <label class="block text-sm font-medium mb-1">State</label>
+                    <select name="state"
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                        required>
+                        <option selected>{{cuser.state}}</option>
+                        <option>Gujarat</option>
+                        <option>Delhi</option>
+                        <option>Goa</option>
+                        <option>Punjab</option>
+                        <option>Other</option>
+                    </select>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <label for="validationCustom05" class="form-label">Mobile</label>
-                <input type="number" value="{{cuser.mobile}}" name="mobile" class="form-control" id="validationCustom05"
-                    required>
-                <div class="invalid-feedback">
-                    Please provide a valid mobile.
+
+                <div>
+                    <label class="block text-sm font-medium mb-1">Mobile</label>
+                    <input type="number" name="mobile" value="{{cuser.mobile}}"
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                        required>
                 </div>
-            </div>
-            <div class="col-12">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                    <label class="form-check-label" for="invalidCheck">
-                        Agree to terms and conditions
+
+                <div class="md:col-span-2">
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                            required>
+                        <span class="ml-2 text-sm">I agree to the terms and conditions</span>
                     </label>
-                    <div class="invalid-feedback">
-                        You must agree before submitting.
-                    </div>
                 </div>
-            </div>
-            <div class="col-12">
-                <button class="btn btn-dark" type="submit">Update</button>
-            </div>
-        </form>
-    </div>
-    <!-- Update Form End -->
+
+                <div class="md:col-span-2 text-center">
+                    <button type="submit"
+                        class="px-10 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition">Update
+                        Profile</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 text-center py-4">
+        <p>© 2025 NotesApp. All rights reserved.</p>
+    </footer>
+
 </body>
 
 </html>
