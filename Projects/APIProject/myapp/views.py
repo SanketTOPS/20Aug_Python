@@ -1,0 +1,39 @@
+from django.shortcuts import render
+from .serializers import *
+from .models import *
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
+
+# Create your views here.
+
+@api_view(['GET'])
+def getall(request):
+    stdata=studinfo.objects.all() #object - query set
+    serial=studSerial(stdata,many=True)
+    return Response(data=serial.data)
+
+@api_view(['GET'])
+def getstid(request,id):
+    try:
+        stid=studinfo.objects.get(id=id)
+    except studinfo.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    serial=studSerial(stid)
+    return Response(data=serial.data)
+
+@api_view(['DELETE','GET'])
+def deletestid(request,id):
+    try:
+        stid=studinfo.objects.get(id=id)
+    except studinfo.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method=='GET':
+        serial=studSerial(stid)
+        return Response(data=serial.data)
+    if request.method=='DELETE':
+        studinfo.delete(stid)
+        return Response(status=status.HTTP_202_ACCEPTED)
+    
+    
+
