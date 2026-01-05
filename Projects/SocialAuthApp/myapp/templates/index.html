@@ -1,0 +1,59 @@
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
+
+        <!-- Title -->
+        <h2 class="text-2xl font-bold text-center mb-6">
+            Login to Your Account
+        </h2>
+
+        <!-- Google Login -->
+        <a href="{% provider_login_url 'google' %}"
+            class="flex items-center justify-center gap-3 border border-gray-300 rounded-md py-2 px-4 mb-4 hover:bg-gray-100 transition">
+
+            <img src="https://img.icons8.com/color/24/google-logo.png" alt="Google">
+            <span class="font-medium text-gray-700">
+                Login with Gmail
+            </span>
+        </a>
+
+        <!-- GitHub Login -->
+        <a href="#"
+            class="flex items-center justify-center gap-3 bg-gray-900 text-white rounded-md py-2 px-4 hover:bg-gray-800 transition">
+
+            <img src="https://img.icons8.com/ios-glyphs/24/ffffff/github.png" alt="GitHub">
+            <span class="font-medium">
+                Login with GitHub
+            </span>
+        </a>
+
+        <!-- Divider -->
+        <div class="flex items-center my-6">
+            <hr class="flex-grow border-gray-300">
+            <span class="mx-3 text-gray-400 text-sm">OR</span>
+            <hr class="flex-grow border-gray-300">
+        </div>
+
+        <!-- Normal Login (Optional) -->
+        <a href="/accounts/login/" class="block text-center text-blue-600 hover:underline text-sm">
+            Login with Email & Password
+        </a>
+
+    </div>
+
+</body>
+
+</html>
